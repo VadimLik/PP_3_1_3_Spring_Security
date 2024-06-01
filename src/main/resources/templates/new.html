@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить нового пользователя</title>
+</head>
+<body>
+<h1>Внесите данные пользователя и добавьте его:</h1>
+<br/>
+<form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+    <label for="username">Придумайте username: </label>
+    <input type="text" th:field="*{userName}" id="username"/>
+    <div style="color: red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Username Error</div>
+    <br/>
+    <label for="password">Придумайте пароль: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br/>
+    <label for="firstname">Ваше имя: </label>
+    <input type="text" th:field="*{firstName}" id="firstname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName Error</div>
+    <br/>
+    <label for="lastname">Ваша фамилия: </label>
+    <input type="text" th:field="*{lastName}" id="lastname"/>
+    <div style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</div>
+    <br/>
+    <label for="age">Ваш возраст: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
+    <br/>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${roles}"
+                   th:text="${role.name}"
+                   th:value="${role.id}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
+    <input type="submit" value="Отправить"/>
+
+    <br/>
+</form>
+
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Завершить работу">
+</form>
+
+</body>
+</html>
